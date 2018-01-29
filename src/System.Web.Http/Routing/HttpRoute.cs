@@ -9,6 +9,13 @@ using System.Web.Http.Properties;
 
 namespace System.Web.Http.Routing
 {
+    /*
+     * HttpRoute的作用体现在一下2点：
+     *              1、对请求的URL进行解析并生成封装路由数据的HttpRouteData对象。 通
+     *              2、以及将提供的路由变量绑定到路由模板以生成一个完整的URL。
+     * 
+     * **/
+
     /// <summary>
     /// Route class for self-host (i.e. hosted outside of ASP.NET). This class is mostly the
     /// same as the System.Web.Routing.Route implementation.
@@ -80,11 +87,17 @@ namespace System.Web.Http.Routing
             }
         }
 
+        /*
+         * 路由变量默认值
+         * **/
         public IDictionary<string, object> Defaults
         {
             get { return _defaults; }
         }
 
+        /*
+         * 路由变量约束
+         * **/
         public IDictionary<string, object> Constraints
         {
             get { return _constraints; }
@@ -95,8 +108,17 @@ namespace System.Web.Http.Routing
             get { return _dataTokens; }
         }
 
+
+        /*
+         * 只读属性Handler返回的HttpMessageHandler对象,这可以说是ASP.NET Web API核心框架最为重要的类型,因为其消息处理管道就是由—组HttpMessageHandler对象连接而成
+         * 
+         * **/
+
         public HttpMessageHandler Handler { get; private set; }
 
+        /*
+         * 路由模板
+         * **/
         public string RouteTemplate
         {
             get { return _routeTemplate; }

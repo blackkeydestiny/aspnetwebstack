@@ -18,6 +18,12 @@ namespace System.Web.Http.Routing
             AllowedMethods = new Collection<HttpMethod>(allowedMethods);
         }
 
+        /*
+         * 
+         *  HttpMethod的集合,当Match方法被执行的时候,它会从代表被检验请求的HttpRequestMessage对象中获得采用的HTTP方法,并根据此列表做出是否满足约束的最终判断。
+         *  
+         *  用于验证数据类型的IntRouteConstraint、FloatRouteConstraint和BoolRouteConstraint,用于验证字符串长度的LenghRouteConstraint、MinlengthRouteConstraint和MaxLengtllRouteConstraint等 
+         * **/
         public Collection<HttpMethod> AllowedMethods { get; private set; }
 
         protected virtual bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)

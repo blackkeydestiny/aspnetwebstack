@@ -10,11 +10,20 @@ namespace System.Web.Http.Routing
     [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This class will never be serialized.")]
     public class HttpRouteValueDictionary : Dictionary<string, object>
     {
+        /*
+         * 1、
+         * 
+         * **/
         public HttpRouteValueDictionary()
             : base(StringComparer.OrdinalIgnoreCase)
         {
         }
 
+
+        /*
+         * 2、
+         * 
+         * **/
         public HttpRouteValueDictionary(IDictionary<string, object> dictionary)
             : base(StringComparer.OrdinalIgnoreCase)
         {
@@ -27,6 +36,10 @@ namespace System.Web.Http.Routing
             }
         }
 
+        /*
+         * 3、
+         * 
+         * **/
         public HttpRouteValueDictionary(object values)
             : base(StringComparer.OrdinalIgnoreCase)
         {

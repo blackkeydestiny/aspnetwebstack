@@ -6,6 +6,9 @@ namespace System.Web.Http.Routing
     {
         private string _virtualPath;
 
+        /*
+         * 
+         * **/
         public HttpVirtualPathData(IHttpRoute route, string virtualPath)
         {
             if (route == null)
@@ -24,6 +27,9 @@ namespace System.Web.Http.Routing
 
         public IHttpRoute Route { get; private set; }
 
+        /*
+         * 根据路由模板和指定路由变量生成一个完整的URL
+         * **/
         public string VirtualPath
         {
             get { return _virtualPath; }
