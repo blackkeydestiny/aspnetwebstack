@@ -12,13 +12,21 @@ using System.Web.Http.Routing;
 
 namespace System.Web.Http
 {
+    /*
+     * 元素类型为IHttpRoute的集合
+     * 
+     * 
+     * **/
     public class HttpRouteCollection : ICollection<IHttpRoute>, IDisposable
     {
         // Arbitrary base address for evaluating the root virtual path
         private static readonly Uri _referenceBaseAddress = new Uri("http://localhost");
 
         private readonly string _virtualPathRoot;
+
+        // 单纯地保存添加的HttpRoute对象
         private readonly List<IHttpRoute> _collection = new List<IHttpRoute>();
+        // 每个添加的HttpRoute对象指定—个具有唯一性的名称 
         private readonly IDictionary<string, IHttpRoute> _dictionary = new Dictionary<string, IHttpRoute>(StringComparer.OrdinalIgnoreCase);
         private bool _disposed;
 
@@ -69,6 +77,9 @@ namespace System.Web.Http
             get { return _dictionary[name]; }
         }
 
+        /*
+         * GetRouteData
+         * **/
         public virtual IHttpRouteData GetRouteData(HttpRequestMessage request)
         {
             if (request == null)
@@ -89,6 +100,9 @@ namespace System.Web.Http
             return null;
         }
 
+        /*
+         * GetVirtualPath
+         * **/
         public virtual IHttpVirtualPathData GetVirtualPath(HttpRequestMessage request, string name, IDictionary<string, object> values)
         {
             if (request == null)
@@ -136,6 +150,10 @@ namespace System.Web.Http
             return _virtualPathRoot;
         }
 
+        /*
+         * CreateRoute
+         * 
+         * **/
         public IHttpRoute CreateRoute(string routeTemplate, object defaults, object constraints)
         {
             IDictionary<string, object> dataTokens = new Dictionary<string, object>();

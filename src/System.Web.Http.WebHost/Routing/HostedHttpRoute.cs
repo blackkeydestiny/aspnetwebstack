@@ -7,6 +7,11 @@ using System.Web.Routing;
 
 namespace System.Web.Http.WebHost.Routing
 {
+    /*
+     * HttpRoute一样，参照HttpRoute学习
+     * 我们可以将HostedHttpRoute对象看成对一个Route对象的封装 
+     * 
+     * **/
     internal class HostedHttpRoute : IHttpRoute
     {
         public HostedHttpRoute(string uriTemplate, IDictionary<string, object> defaults, IDictionary<string, object> constraints, IDictionary<string, object> dataTokens, HttpMessageHandler handler)
@@ -14,6 +19,11 @@ namespace System.Web.Http.WebHost.Routing
             RouteValueDictionary routeDefaults = defaults != null ? new RouteValueDictionary(defaults) : null;
             RouteValueDictionary routeConstraints = constraints != null ? new RouteValueDictionary(constraints) : null;
             RouteValueDictionary routeDataTokens = dataTokens != null ? new RouteValueDictionary(dataTokens) : null;
+            /*
+             * 实现在HostedHttpRoute之中的核心路由功能基本上是通过这个Route对象完成的,
+             * 所以我们才说ASP.NET Web API的路由在Web Host寄宿模式下还是利用ASP.NET自身的路由系统实现的
+             * 
+             * **/
             OriginalRoute = new HttpWebRoute(uriTemplate, routeDefaults, routeConstraints, routeDataTokens, HttpControllerRouteHandler.Instance, this);
             Handler = handler;
         }
@@ -40,6 +50,11 @@ namespace System.Web.Http.WebHost.Routing
 
         public HttpMessageHandler Handler { get; private set; }
 
+        /*
+         * 实现在HostedHttpRoute之中的核心路由功能基本上是通过这个Route对象完成的,
+         * 所以我们才说ASP.NET Web API的路由在Web Host寄宿模式下还是利用ASP.NET自身的路由系统实现的
+         * 
+         * **/  
         internal Route OriginalRoute { get; private set; }
 
         public IHttpRouteData GetRouteData(string rootVirtualPath, HttpRequestMessage request)

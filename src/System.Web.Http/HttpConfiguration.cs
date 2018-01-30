@@ -72,6 +72,9 @@ namespace System.Web.Http
             ParameterBindingRules = DefaultActionValueBinder.GetDefaultParameterBinders();
         }
 
+        /*
+         * 私有构造函数
+         * **/
         private HttpConfiguration(HttpConfiguration configuration, HttpControllerSettings settings)
         {
             _routes = configuration.Routes;
@@ -152,6 +155,11 @@ namespace System.Web.Http
             get { return _messageHandlers; }
         }
 
+
+        /*
+         * 路由映射注册的HttpRoute正是被添加于此
+         * 
+         * **/
         /// <summary>
         /// Gets the <see cref="HttpRouteCollection"/> associated with this <see cref="HttpServer"/> instance.
         /// </summary>
@@ -163,6 +171,13 @@ namespace System.Web.Http
             get { return _routes; }
         }
 
+
+        /*
+         * 在具体的运行环境中,我们使用HttpConfiguration都是针对整个应用的全局对象,所以我们添加到Propertites属性中的对象也是全局的,我们可以在任何地方任何时间将它们提取出来。
+         * 
+         * 
+         * **/
+
         /// <summary>
         /// Gets the properties associated with this instance.
         /// </summary>
@@ -171,6 +186,9 @@ namespace System.Web.Http
             get { return _properties; }
         }
 
+        /*
+         * 使用的虚拟根路径,它直接返回通过Routes属性表示的HttpRouteCollection对象的同名属性VirtualPathRoot
+         * **/
         /// <summary>
         /// Gets the root virtual path. The <see cref="VirtualPathRoot"/> property always returns 
         /// "/" as the first character of the returned value.
@@ -215,6 +233,10 @@ namespace System.Web.Http
         /// </summary>
         public IncludeErrorDetailPolicy IncludeErrorDetailPolicy { get; set; }
 
+        /*
+         * 
+         * 
+         * **/
         /// <summary>
         /// Gets the media type formatters.
         /// </summary>

@@ -9,6 +9,11 @@ using System.Web.Http.Routing;
 
 namespace System.Web.Http
 {
+    /*
+     * 
+     * HttpRouteCollection扩展方法
+     * 
+     * **/
     /// <summary>
     /// Extension methods for <see cref="HttpRouteCollection"/>
     /// </summary>

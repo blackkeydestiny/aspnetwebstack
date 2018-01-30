@@ -13,6 +13,12 @@ using System.Web.Routing;
 
 namespace System.Web.Http
 {
+
+    /*
+     *  Web Host寄宿模式，HttpConfiguration可以通过静态类型Configuration来获取
+     * 
+     * **/
+
     /// <summary>
     /// Provides a global <see cref="T:System.Web.Http.HttpConfiguration"/> for ASP.NET applications.
     /// </summary>
@@ -24,6 +30,9 @@ namespace System.Web.Http
 
         private static Lazy<HttpServer> _defaultServer = CreateDefaultServer();
 
+        /*
+         * Web Host寄宿模式，HttpConfiguration可以通过静态类型Configuration来获取
+         * **/
         /// <summary>
         /// Gets the global <see cref="T:System.Web.Http.HttpConfiguration"/>.
         /// </summary>
@@ -71,6 +80,10 @@ namespace System.Web.Http
             _defaultServer = CreateDefaultServer();
         }
 
+
+        /*
+         * Web Host寄宿模式，HttpConfiguration可以通过静态类型Configuration来获取
+         * **/
         [SuppressMessage("Microsoft.Reliability", "CA2000",
             Justification = "It does not appear possible for this construction code to throw.")]
         private static Lazy<HttpConfiguration> CreateConfiguration()

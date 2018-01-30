@@ -39,10 +39,16 @@ namespace System.Web.Http.WebHost.Routing
             HttpRoute = httpRoute;
         }
 
+
+        /*
+         * HttpWebRoute具有—个只读属性HttpRoute用于返回创建它的HttpRoute对象,在此情况下自然就是创建它的HostedHttpRoute对象。
+         * 
+         * **/
         /// <summary>
         /// Gets the <see cref="IHttpRoute"/> associated with this <see cref="HttpWebRoute"/>.
         /// </summary>
         public IHttpRoute HttpRoute { get; private set; }
+
 
         protected override bool ProcessConstraint(HttpContextBase httpContext, object constraint, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
