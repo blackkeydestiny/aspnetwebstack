@@ -15,6 +15,12 @@ using System.Web.Http.Properties;
 
 namespace System.Web.Http
 {
+    /*
+     * 1、HttpServer是整个HttpMessageHandler链(ASP.NET Web Api消息处理管道、DelegatingHandler链)的“龙头”
+     * 2、整个HttpMessageHandler链(ASP.NET Web Api消息处理管道、DelegatingHandler链)的尾端是HttpMessageHandler
+     * 3、整个HttpMessageHandler链(ASP.NET Web Api消息处理管道、DelegatingHandler链)的中间就是DelegatingHandler链
+     * 
+     * **/
     /// <summary>
     /// Defines an implementation of an <see cref="HttpMessageHandler"/> which dispatches an 
     /// incoming <see cref="HttpRequestMessage"/> and creates an <see cref="HttpResponseMessage"/> as a result.
@@ -44,6 +50,10 @@ namespace System.Web.Http
         {
         }
 
+        /*
+         * 第二个参数为HttpRoutingDispatcher。路由分发器继承自HttpMessageHandler
+         * 
+         * **/
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpServer"/> class with default dispatcher.
         /// </summary>
@@ -93,6 +103,12 @@ namespace System.Web.Http
             _configuration = configuration;
         }
 
+
+        #region 2个重要的只读属性
+        /*
+         * 只读属性Dispatcher：获取整个HttpMessageHandler链(ASP.NET Web Api消息处理管道、DelegatingHandler链)的尾端是HttpMessageHandler
+         * 
+         * **/
         /// <summary>
         /// Gets the dispatcher.
         /// </summary>
@@ -101,6 +117,9 @@ namespace System.Web.Http
             get { return _dispatcher; }
         }
 
+        /*
+         * 只读属性Configuration：获取用于配置整个消息处理管道的HttpConfiguration对象
+         * **/
         /// <summary>
         /// Gets the <see cref="HttpConfiguration"/>.
         /// </summary>
@@ -108,6 +127,8 @@ namespace System.Web.Http
         {
             get { return _configuration; }
         }
+        #endregion
+
 
         /// <remarks>This property is settable only for unit testing purposes.</remarks>
         internal IExceptionLogger ExceptionLogger
@@ -145,6 +166,10 @@ namespace System.Web.Http
             }
         }
 
+        /*
+         * 完成对HttpConfiguration对象的释放
+         * 
+         * **/
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources
         /// </summary>
@@ -266,6 +291,11 @@ namespace System.Web.Http
             });
         }
 
+
+        /*
+         * 该方法最终完成了对整个消息处理管道的构建。 
+         * 
+         * **/
         /// <summary>
         /// Prepares the server for operation.
         /// </summary>
@@ -282,6 +312,8 @@ namespace System.Web.Http
             // Create pipeline
             InnerHandler = HttpClientFactory.CreatePipeline(_dispatcher, _configuration.MessageHandlers);
         }
+
+
 
         private static HttpConfiguration EnsureNonNull(HttpConfiguration configuration)
         {

@@ -140,6 +140,12 @@ namespace System.Web.Http
             get { return _filters; }
         }
 
+
+        /*
+         * 这个只读的集合类型MessageHandlers,需要注册的HttpMessageHandler需要添加到此集合之中。
+         * 由于这是一个元素类型为DelegatingHandler的集合,所以我们自定义的HttpMessageHandler必须继DelegatingHandler
+         * 
+         * **/
         /// <summary>
         /// Gets an ordered list of <see cref="DelegatingHandler"/> instances to be invoked as an
         /// <see cref="HttpRequestMessage"/> travels up the stack and an <see cref="HttpResponseMessage"/> travels down in
