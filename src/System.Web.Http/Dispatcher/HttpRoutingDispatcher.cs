@@ -13,6 +13,12 @@ using System.Web.Http.Routing;
 
 namespace System.Web.Http.Dispatcher
 {
+    /*
+     * 2个基本职能：路由和消息分发
+     * 路由职能：它会调用当前路由表对请求消息实施路由解析进而生成用于封装路由数据的HttpRouteData
+     * 消息分发职能：会将请求直接分发给在创建时指定的HttpMessageHandler来完成进—步处理
+     * **/
+
     /// <summary>
     /// This class is the default endpoint message handler which examines the <see cref="IHttpRoute"/>
     /// of the matched route, and chooses which message handler to call. If <see cref="IHttpRoute.Handler"/>
@@ -20,9 +26,19 @@ namespace System.Web.Http.Dispatcher
     /// </summary>
     public class HttpRoutingDispatcher : HttpMessageHandler
     {
+
+
         private readonly HttpConfiguration _configuration;
         private readonly HttpMessageInvoker _defaultInvoker;
 
+
+
+        #region 构造方法
+        //===========================================构造方法======================================================================
+        /*
+         * 注意：第二个参数为HttpControllerDispatcher，HttpControllerDispatcher具体完成目标contoller的激活和action方法的执行以及响应的生成
+         * 
+         * **/
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpRoutingDispatcher"/> class,
         /// using the provided <see cref="HttpConfiguration"/> and <see cref="HttpControllerDispatcher"/>
@@ -55,7 +71,16 @@ namespace System.Web.Http.Dispatcher
             _configuration = configuration;
             _defaultInvoker = new HttpMessageInvoker(defaultHandler);
         }
+        //===========================================构造方法======================================================================
+        #endregion
 
+
+
+        /*
+         * 重写SendAsync方法
+         * 
+         * **/
+        //===============================================SendAsync方法==================================================================
         /// <inheritdoc/>
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "The Web API framework will dispose of the response after sending it")]
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -74,6 +99,8 @@ namespace System.Web.Http.Dispatcher
             if (routeData == null || (routeData.Route != null && routeData.Route.Handler is StopRoutingHandler))
             {
                 request.Properties.Add(HttpPropertyKeys.NoRouteMatched, true);
+
+                // 404 Not Found
                 return Task.FromResult(request.CreateErrorResponse(
                     HttpStatusCode.NotFound,
                     Error.Format(SRResources.ResourceNotFound, request.RequestUri),
@@ -87,6 +114,7 @@ namespace System.Web.Http.Dispatcher
             var invoker = (routeData.Route == null || routeData.Route.Handler == null) ?
                 _defaultInvoker : new HttpMessageInvoker(routeData.Route.Handler, disposeHandler: false);
             return invoker.SendAsync(request, cancellationToken);
-        }       
+        }
+        //===============================================SendAsync方法==================================================================
     }
 }

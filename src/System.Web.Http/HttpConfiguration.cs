@@ -24,6 +24,8 @@ namespace System.Web.Http
     /// </summary>
     public class HttpConfiguration : IDisposable
     {
+        #region 变量
+
         private readonly HttpRouteCollection _routes;
         private readonly ConcurrentDictionary<object, object> _properties = new ConcurrentDictionary<object, object>();
         private readonly MediaTypeFormatterCollection _formatters;
@@ -36,13 +38,15 @@ namespace System.Web.Http
 
         private bool _disposed;
 
+        #endregion
+        
+
 
         /*
          * 
          *  2个公有构造方法
          * 
          * **/
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpConfiguration"/> class.
@@ -102,6 +106,8 @@ namespace System.Web.Http
             }
         }
 
+
+
         /// <summary>
         /// Gets or sets the action that will perform final initialization
         /// of the <see cref="HttpConfiguration"/> instance before it is used
@@ -141,6 +147,7 @@ namespace System.Web.Http
         }
 
 
+
         /*
          * 这个只读的集合类型MessageHandlers,需要注册的HttpMessageHandler需要添加到此集合之中。
          * 由于这是一个元素类型为DelegatingHandler的集合,所以我们自定义的HttpMessageHandler必须继DelegatingHandler
@@ -162,6 +169,7 @@ namespace System.Web.Http
         }
 
 
+
         /*
          * 路由映射注册的HttpRoute正是被添加于此
          * 
@@ -176,6 +184,7 @@ namespace System.Web.Http
         {
             get { return _routes; }
         }
+
 
 
         /*
@@ -238,6 +247,7 @@ namespace System.Web.Http
         /// Gets or sets a value indicating whether error details should be included in error messages.
         /// </summary>
         public IncludeErrorDetailPolicy IncludeErrorDetailPolicy { get; set; }
+
 
         /*
          * 

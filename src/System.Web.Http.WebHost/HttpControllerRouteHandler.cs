@@ -4,14 +4,20 @@ using System.Web.Routing;
 
 namespace System.Web.Http.WebHost
 {
+
+
     /// <summary>
     /// A <see cref="IRouteHandler"/> that returns instances of <see cref="HttpControllerHandler"/> that
     /// can pass requests to a given <see cref="HttpServer"/> instance.
     /// </summary>
     public class HttpControllerRouteHandler : IRouteHandler
     {
+
+
         private static readonly Lazy<HttpControllerRouteHandler> _instance =
             new Lazy<HttpControllerRouteHandler>(() => new HttpControllerRouteHandler(), isThreadSafe: true);
+
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpControllerRouteHandler"/> class.
@@ -20,6 +26,8 @@ namespace System.Web.Http.WebHost
         {
         }
 
+
+
         /// <summary>
         /// Gets the singleton <see cref="HttpControllerRouteHandler"/> instance.
         /// </summary>
@@ -27,6 +35,8 @@ namespace System.Web.Http.WebHost
         {
             get { return _instance.Value; }
         }
+
+
 
         /// <summary>
         /// Provides the object that processes the request.
@@ -40,6 +50,8 @@ namespace System.Web.Http.WebHost
             return GetHttpHandler(requestContext);
         }
 
+
+
         /// <summary>
         /// Provides the object that processes the request.
         /// </summary>
@@ -49,7 +61,13 @@ namespace System.Web.Http.WebHost
         /// </returns>
         protected virtual IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
+            /*
+             * 返回的是一个通过RouteData创建的HttpControllerHandler对象
+             * 
+             * **/
             return new HttpControllerHandler(requestContext.RouteData);
         }
+
+
     }
 }

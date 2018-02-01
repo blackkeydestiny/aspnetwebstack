@@ -31,6 +31,7 @@ namespace System.Web.Http.WebHost
     [SuppressMessage("Microsoft.Design", "CA1001:Implement IDisposable", Justification = "HttpMessageInvoker doesn’t have any resources of its own to dispose.")]
     public class HttpControllerHandler : HttpTaskAsyncHandler
     {
+
         // See Microsoft.Owin.Host.SystemWeb.
         internal static readonly string OwinEnvironmentHttpContextKey = "owin.Environment";
 
@@ -62,6 +63,10 @@ namespace System.Web.Http.WebHost
         private readonly IHttpRouteData _routeData;
         private readonly HttpMessageInvoker _server;
 
+
+
+
+        //===========================================构造方法======================================================================
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpControllerHandler"/> class.
         /// </summary>
@@ -90,7 +95,13 @@ namespace System.Web.Http.WebHost
             _routeData = new HostedHttpRouteData(routeData);
             _server = new HttpMessageInvoker(handler);
         }
+        //===========================================构造方法======================================================================
 
+
+        /*
+         * 实现接口HttpTaskAsyncHandler方法。请求进行最终处理
+         * **/
+        //===========================================ProcessRequestAsync======================================================================
         public override Task ProcessRequestAsync(HttpContext context)
         {
             return ProcessRequestAsyncCore(new HttpContextWrapper(context));
@@ -129,6 +140,8 @@ namespace System.Web.Http.WebHost
                 }
             }
         }
+        //===========================================ProcessRequestAsync======================================================================
+
 
         private static void CopyHeaders(HttpHeaders from, HttpContextBase to)
         {

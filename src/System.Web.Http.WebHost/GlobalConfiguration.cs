@@ -24,11 +24,15 @@ namespace System.Web.Http
     /// </summary>
     public static class GlobalConfiguration
     {
+
         private static Lazy<HttpConfiguration> _configuration = CreateConfiguration();
 
-        private static Lazy<HttpMessageHandler> _defaultHandler = CreateDefaultHandler();
 
+        //
+        private static Lazy<HttpMessageHandler> _defaultHandler = CreateDefaultHandler();
         private static Lazy<HttpServer> _defaultServer = CreateDefaultServer();
+
+
 
         /*
          * Web Host寄宿模式，HttpConfiguration可以通过静态类型Configuration来获取
@@ -41,6 +45,11 @@ namespace System.Web.Http
             get { return _configuration.Value; }
         }
 
+
+
+        /*
+         * 消息处理管道的尾端HttpMessageHandler
+         * **/
         /// <summary>
         /// Gets the default message handler that will be called for all requests.
         /// </summary>
@@ -49,6 +58,9 @@ namespace System.Web.Http
             get { return _defaultHandler.Value; }
         }
 
+        /*
+        * 消息处理管道的首段HttpMessageHandler
+        * **/
         /// <summary>
         /// Gets the global <see cref="T:System.Web.Http.HttpServer"/>.
         /// </summary>
@@ -56,6 +68,11 @@ namespace System.Web.Http
         {
             get { return _defaultServer.Value; }
         }
+
+
+
+
+
 
         /// <summary>
         /// Performs configuration for <see cref="GlobalConfiguration.Configuration"/> and ensures that it is

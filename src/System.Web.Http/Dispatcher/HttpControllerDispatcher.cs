@@ -15,17 +15,28 @@ using System.Web.Http.Routing;
 
 namespace System.Web.Http.Dispatcher
 {
+
+    /*
+     * 具体完成目标contoller的激活和action方法的执行以及响应的生成
+     * 
+     * **/
+
     /// <summary>
     /// Dispatches an incoming <see cref="HttpRequestMessage"/> to an <see cref="IHttpController"/> implementation for processing.
     /// </summary>
     public class HttpControllerDispatcher : HttpMessageHandler
     {
+
+
         private readonly HttpConfiguration _configuration;
 
         private IExceptionLogger _exceptionLogger;
         private IExceptionHandler _exceptionHandler;
         private IHttpControllerSelector _controllerSelector;
 
+
+
+        //===========================================构造方法======================================================================
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpControllerDispatcher"/> class.
         /// </summary>
@@ -38,6 +49,9 @@ namespace System.Web.Http.Dispatcher
 
             _configuration = configuration;
         }
+        //=================================================================================================================
+
+
 
         /// <summary>
         /// Gets the <see cref="HttpConfiguration"/>.
@@ -95,6 +109,10 @@ namespace System.Web.Http.Dispatcher
                 return _controllerSelector;
             }
         }
+
+
+
+        //===============================================SendAsync方法==================================================================
 
         /// <summary>
         /// Dispatches an incoming <see cref="HttpRequestMessage"/> to an <see cref="IHttpController"/>.
@@ -171,6 +189,8 @@ namespace System.Web.Http.Dispatcher
             return response;
         }
 
+
+
         private static HttpControllerContext CreateControllerContext(
             HttpRequestMessage request, 
             HttpControllerDescriptor controllerDescriptor,
@@ -223,5 +243,7 @@ namespace System.Web.Http.Dispatcher
 
             return configuration;
         }
+
+        //=================================================================================================================
     }
 }

@@ -26,6 +26,11 @@ namespace System.Net.Http
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class HttpRequestMessageExtensions
     {
+        #region HttpConfiguration
+        /*
+         * 1、获取HttpRequestMessage的字典属性Properties中的HttpConfiguration
+         * 
+         * **/
         /// <summary>
         /// Gets the <see cref="HttpConfiguration"/> for the given request.
         /// </summary>
@@ -53,6 +58,10 @@ namespace System.Net.Http
             return request.GetProperty<HttpConfiguration>(HttpPropertyKeys.HttpConfigurationKey);
         }
 
+        /*
+         * 2、设置HttpRequestMessage的字典属性Properties中的HttpConfiguration
+         * 
+         * **/
         /// <summary>
         /// Sets the <see cref="HttpConfiguration"/> for the given request.
         /// </summary>
@@ -78,6 +87,7 @@ namespace System.Net.Http
 
             request.Properties[HttpPropertyKeys.HttpConfigurationKey] = configuration;
         }
+        #endregion
 
         /// <summary>
         /// Gets the dependency resolver scope associated with this <see cref="HttpRequestMessage"/>.
@@ -140,6 +150,11 @@ namespace System.Net.Http
             request.Properties[HttpPropertyKeys.RequestContextKey] = context;
         }
 
+        #region SynchronizationContext
+        /*
+         * 1、获取HttpRequestMessage的字典属性Properties中的SynchronizationContext
+         * 
+         * **/
         /// <summary>
         /// Gets the <see cref="System.Threading.SynchronizationContext"/> for the given request or null if not available.
         /// </summary>
@@ -155,6 +170,10 @@ namespace System.Net.Http
             return request.GetProperty<SynchronizationContext>(HttpPropertyKeys.SynchronizationContextKey);
         }
 
+        /*
+         * 2、设置HttpRequestMessage的字典属性Properties中的SynchronizationContext
+         * 
+         * **/
         internal static void SetSynchronizationContext(this HttpRequestMessage request, SynchronizationContext synchronizationContext)
         {
             if (request == null)
@@ -164,6 +183,8 @@ namespace System.Net.Http
 
             request.Properties[HttpPropertyKeys.SynchronizationContextKey] = synchronizationContext;
         }
+
+        #endregion 
 
         /// <summary>
         /// Gets the current <see cref="T:System.Security.Cryptography.X509Certificates.X509Certificate2"/> or null if not available.
@@ -209,6 +230,8 @@ namespace System.Net.Http
 
             return result;
         }
+
+        #region RouteData
 
         /// <summary>
         /// Gets the <see cref="System.Web.Http.Routing.IHttpRouteData"/> for the given request or null if not available.
@@ -263,6 +286,8 @@ namespace System.Net.Http
 
             request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
         }
+        #endregion
+
 
         /// <summary>
         /// Gets the <see cref="System.Web.Http.Controllers.HttpActionDescriptor"/> selected for the given request or null if not available.
