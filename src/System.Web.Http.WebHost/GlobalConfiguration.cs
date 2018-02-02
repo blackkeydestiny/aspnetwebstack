@@ -107,7 +107,11 @@ namespace System.Web.Http
         {
             return new Lazy<HttpConfiguration>(() =>
             {
+                /*
+                 * HostedHttpRouteCollection才是真正的返回类型
+                 * **/
                 HttpConfiguration config = new HttpConfiguration(new HostedHttpRouteCollection(RouteTable.Routes));
+
                 ServicesContainer services = config.Services;
                 Contract.Assert(services != null);
                 services.Replace(typeof(IAssembliesResolver), new WebHostAssembliesResolver());
